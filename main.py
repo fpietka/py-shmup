@@ -16,6 +16,7 @@ Image.CreateMaskFromColor(Image.GetPixel(0, 0))
 Sprite = sf.Sprite(Image)
 # get the sprite downsized
 Sprite.Resize(Sprite.GetSize()[0] / 2, Sprite.GetSize()[1] / 2)
+Sprite.Move(400 - (Sprite.GetSize()[0] / 2), 300 - (Sprite.GetSize()[1] / 2))
 
 Image = sf.Image()
 if not Image.LoadFromFile("water-blue-water-tile.jpg"):
