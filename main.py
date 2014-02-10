@@ -19,12 +19,13 @@ Sprite.Resize(Sprite.GetSize()[0] / 2, Sprite.GetSize()[1] / 2)
 
 Image = sf.Image()
 if not Image.LoadFromFile("water-blue-water-tile.jpg"):
-    print "Error loading sprite"
+    print "Error loading background"
     import sys
     sys.exit(1)
-Sprite2 = sf.Sprite(Image)
-# get the sprite downsized
-Sprite2.Resize(Sprite2.GetSize()[0] / 4, Sprite2.GetSize()[1] / 4)
+Background = sf.Sprite(Image)
+# get the background downsized
+Background.Resize(Background.GetSize()[0] / 4, Background.GetSize()[1] / 4)
+
 
 # Start the game loop
 running = True
@@ -33,9 +34,8 @@ while running:
     while window.GetEvent(event):
         if event.Type == sf.Event.Closed:
             running = False
-
     # Clear screen, draw the text, and update the window
     window.Clear()
-    window.Draw(Sprite2)
+    window.Draw(Background)
     window.Draw(Sprite)
     window.Display()
