@@ -6,9 +6,6 @@ from PySFML import sf
 # Create the main window
 window = sf.RenderWindow(sf.VideoMode(800, 600), "PySFML test")
 
-# Create a graphical string to display
-text = sf.String("Hello SFML")
-
 # resources
 Image = sf.Image()
 if not Image.LoadFromFile("FAX-44_MkIII_b.png"):
@@ -39,7 +36,6 @@ while running:
 
     # Clear screen, draw the text, and update the window
     window.Clear()
-    window.Draw(text)
     window.Draw(Sprite2)
     window.Draw(Sprite)
     window.Display()
