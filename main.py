@@ -1,42 +1,51 @@
 #!/usr/bin/python
 
 # Include the PySFML extension
-from PySFML import sf
+import sfml as sf
 
 # Create the main window
 window = sf.RenderWindow(sf.VideoMode(800, 600), "PySFML test")
+window.vertical_synchronization = True
 
 # resources
-Image = sf.Image()
-if not Image.LoadFromFile("FAX-44_MkIII_b.png"):
+try:
+    Image = sf.Image.from_file("FAX-44_MkIII_b.png")
+except IOError:
     print "Error loading sprite"
     import sys
     sys.exit(1)
-Image.CreateMaskFromColor(Image.GetPixel(0, 0))
-Sprite = sf.Sprite(Image)
+Image.create_mask_from_color(Image[0, 0])
+Texture = sf.Texture.from_image(Image)
+Sprite = sf.Sprite(Texture)
 # get the sprite downsized
-Sprite.Resize(Sprite.GetSize()[0] / 2, Sprite.GetSize()[1] / 2)
-Sprite.Move(400 - (Sprite.GetSize()[0] / 2), 300 - (Sprite.GetSize()[1] / 2))
+Sprite.scale((0.5, 0.5))
+Sprite.move((400 - (Image.width / 2), 300 - (Image.height / 2)))
 
-Image = sf.Image()
-if not Image.LoadFromFile("water-blue-water-tile.jpg"):
+try:
+    Image = sf.Image.from_file("water-blue-water-tile.jpg")
+except IOError:
     print "Error loading background"
     import sys
     sys.exit(1)
-Background = sf.Sprite(Image)
+Texture = sf.Texture.from_image(Image)
+Background = sf.Sprite(Texture)
 # get the background downsized
-Background.Resize(Background.GetSize()[0] / 4, Background.GetSize()[1] / 4)
+Background.scale((0.25, 0.25))
 
 
 # Start the game loop
-running = True
-while running:
-    event = sf.Event()
-    while window.GetEvent(event):
-        if event.Type == sf.Event.Closed:
-            running = False
+while window.is_open:
+    for event in window.events:
+        # window closed or escape key pressed: exit
+        if type(event) is sf.CloseEvent:
+            window.close()
     # Clear screen, draw the text, and update the window
-    window.Clear()
-    window.Draw(Background)
-    window.Draw(Sprite)
-    window.Display()
+    window.clear()
+
+    import math
+    for x in range(0, int(math.floor(800 / Image.width)) +1):
+        Background.move((x, 0))
+        window.draw(Background)
+
+    window.draw(Sprite)
+    window.display()
