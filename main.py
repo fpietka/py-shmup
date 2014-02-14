@@ -42,10 +42,10 @@ while window.is_open:
     # Clear screen, draw the text, and update the window
     window.clear()
 
-    import math
-    for x in range(0, int(math.floor(800 / Image.width)) +1):
-        Background.move((x, 0))
-        window.draw(Background)
+    for x in range(0, window.width / (Image.width / 4) +1):
+        for y in range(0, window.height / (Image.height / 4) +1):
+            Background.position = x * (Image.width /4), y * (Image.height /4)
+            window.draw(Background)
 
     window.draw(Sprite)
     window.display()
