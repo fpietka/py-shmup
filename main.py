@@ -1,7 +1,11 @@
 #!/usr/bin/python
 
+from __future__ import division
+
 # Include the PySFML extension
 import sfml as sf
+
+import math
 
 # Create the main window
 window = sf.RenderWindow(sf.VideoMode(800, 600), "PySFML test")
@@ -28,10 +32,17 @@ except IOError:
     import sys
     sys.exit(1)
 Texture = sf.Texture.from_image(Image)
+Texture.repeated
+# Prepare background
 Background = sf.Sprite(Texture)
 # get the background downsized
 Background.scale((0.25, 0.25))
 
+b_width = Image.width / 4
+b_height = Image.height / 4
+
+def ceil(value):
+    return int(math.ceil(value))
 
 # Start the game loop
 while window.is_open:
@@ -42,9 +53,9 @@ while window.is_open:
     # Clear screen, draw the text, and update the window
     window.clear()
 
-    for x in range(0, window.width / (Image.width / 4) +1):
-        for y in range(0, window.height / (Image.height / 4) +1):
-            Background.position = x * (Image.width /4), y * (Image.height /4)
+    for x in range(0, ceil(window.width / b_width)):
+        for y in range(0, ceil(window.height / b_height)):
+            Background.position = x * b_width, y * b_height
             window.draw(Background)
 
     window.draw(Sprite)
