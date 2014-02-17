@@ -44,6 +44,10 @@ b_height = Image.height / 4
 def ceil(value):
     return int(math.ceil(value))
 
+speed = 1
+
+step = 0
+
 # Start the game loop
 while window.is_open:
     for event in window.events:
@@ -53,9 +57,14 @@ while window.is_open:
     window.clear()
 
     for x in range(0, ceil(window.width / b_width)):
-        for y in range(0, ceil(window.height / b_height)):
-            Background.position = x * b_width, y * b_height
+        for y in range(0, ceil(window.height / b_height) + int(b_height)):
+            Background.position = x * b_width, y * b_height - step - b_height
             window.draw(Background)
+
+    if step <= - b_height:
+        step = 0
+    else:
+        step -= speed
 
     window.draw(Sprite)
     window.display()
