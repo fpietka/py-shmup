@@ -50,7 +50,6 @@ while window.is_open:
         # window closed or escape key pressed: exit
         if type(event) is sf.CloseEvent:
             window.close()
-    # Clear screen, draw the text, and update the window
     window.clear()
 
     for x in range(0, ceil(window.width / b_width)):
