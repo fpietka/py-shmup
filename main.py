@@ -45,6 +45,7 @@ def ceil(value):
     return int(math.ceil(value))
 
 speed = 1
+sprite_speed = 5
 
 step = 0
 
@@ -65,6 +66,15 @@ while window.is_open:
         step = 0
     else:
         step -= speed
+
+    if sf.Keyboard.is_key_pressed(sf.Keyboard.LEFT):
+        Sprite.move((- sprite_speed, 0));
+    if sf.Keyboard.is_key_pressed(sf.Keyboard.RIGHT):
+        Sprite.move((sprite_speed, 0));
+    if sf.Keyboard.is_key_pressed(sf.Keyboard.UP):
+        Sprite.move((0, - sprite_speed));
+    if sf.Keyboard.is_key_pressed(sf.Keyboard.DOWN):
+        Sprite.move((0, sprite_speed));
 
     window.draw(Sprite)
     window.display()
